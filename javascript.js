@@ -138,5 +138,4 @@ function playGame() {
     console.log(declareWin(humanScore, computerScore));
 
 };
-
-console.log(playGame());
+playGame();

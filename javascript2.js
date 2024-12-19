@@ -1,6 +1,8 @@
-
 const choices = ["Rock", "Paper", "Scissors"]; 
 //setting up an array to assign values to the random numbers
+const win = [[choices[0] + choices[2]], [choices[1] + choices[0]], [choices[2] + choices[1]]];
+const lose = [[choices[2] + choices[0]], [choices[0] + choices[1]], [choices[1] + choices[2]]];
+const tie = [[choices[0] + choices[0]], [choices[1] + choices[1]], [choices[2] + choices[2]]];
 
 function playGame() {
 
@@ -8,6 +10,26 @@ function playGame() {
     let computerScore = 0;
     
     for (let i = 0; i < 5; i++) {
+
+        function getHumanChoice() {
+            const humanChoice = prompt();
+            const humanChoice2 = humanChoice.toLowerCase();
+            function assignHumanChoice(val) {
+                if (val == "rock") {
+                    return choices[0]
+                } else if (val == "paper") {
+                    return choices[1]
+                } else if (val == "scissors") {
+                    return choices[2]
+                } else {
+                    return "not a valid answer"
+                };
+            };
+            return assignHumanChoice(humanChoice2);
+        };
+
+        let humanMove = getHumanChoice();
+        console.log(humanMove);
 
         function getComputerChoice() {
             const number = 3;
@@ -35,31 +57,8 @@ function playGame() {
         console.log(computerMove);
 
 
-        function getHumanChoice() {
-            const humanChoice = prompt();
-            const humanChoice2 = humanChoice.toLowerCase();
-            function assignHumanChoice(val) {
-                if (val == "rock") {
-                    return choices[0]
-                } else if (val == "paper") {
-                    return choices[1]
-                } else if (val == "scissors") {
-                    return choices[2]
-                } else {
-                    return "not a valid answer"
-                };
-            };
-            return assignHumanChoice(humanChoice2);
-        };
-
-        let humanMove = getHumanChoice();
-        console.log(humanMove);
-
 
         function playRound(a, b) {
-        const win = [[choices[0] + choices[2]], [choices[1] + choices[0]], [choices[2] + choices[1]]];
-        const lose = [[choices[2] + choices[0]], [choices[0] + choices[1]], [choices[1] + choices[2]]];
-        const tie = [[choices[0] + choices[0]], [choices[1] + choices[1]], [choices[2] + choices[2]]];
 
         if ((a + b) == win[0]) {
             return "you win! rock beats scissors.";
@@ -90,9 +89,6 @@ function playGame() {
         let humanWins;
 
         function roundWinner(a, b) {
-            const win = [[choices[0] + choices[2]], [choices[1] + choices[0]], [choices[2] + choices[1]]];
-            const lose = [[choices[2] + choices[0]], [choices[0] + choices[1]], [choices[1] + choices[2]]];
-            const tie = [[choices[0] + choices[0]], [choices[1] + choices[1]], [choices[2] + choices[2]]];
             if ((a + b) == win[0] || (a + b) == win[1] || (a + b) == win[2]) {
                return humanWins = true; 
             } else if ((a + b) == lose[0] || (a + b) == lose[1] || (a + b) == lose[2]) {
@@ -102,7 +98,7 @@ function playGame() {
 
         function incrementHumanWin() {
             if (roundWinner(humanMove, computerMove) == true) {
-                return humanScore++
+                return ++humanScore
             } else {
                 return humanScore
             };
@@ -110,7 +106,7 @@ function playGame() {
 
         function incrementComputerWin() {
             if (roundWinner(humanMove, computerMove) == false) {
-                return computerScore++
+                return ++computerScore
             } else {
                 return computerScore
             };
@@ -118,12 +114,12 @@ function playGame() {
 
         console.log(playRound(humanMove, computerMove));
 
-        console.log(incrementHumanWin());
-        console.log(incrementComputerWin());
+        console.log("Human:" + incrementHumanWin());
+        console.log("Computer:" + incrementComputerWin());
 
     };
    
-    console.log (humanScore, computerScore);
+    console.log ("Human Score:" + humanScore + " Computer Score:" + computerScore);
 
     function declareWin(x, y) {
         if (x > y) {
@@ -138,7 +134,4 @@ function playGame() {
     console.log(declareWin(humanScore, computerScore));
 
 };
-
-console.log(playGame());
-
-
+playGame();
