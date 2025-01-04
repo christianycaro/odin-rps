@@ -3,20 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>rock paper scissors</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="choices">
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
+<div class="gameBox">
+   <div class="playerOptions">
+    <h1 class="playerName">player</h1>
+    <h1 class="playerScore">0</h1>
+    <img src="images/rock.png" id="rock"/>
+    <img src="images/paper.png" id="paper"/>
+    <img src="images/scissors.png" id="scissors"/>
+   </div>
+   <div class="battleUi">
+    <h1 class="winnerUi"></h1>
+    <div class="battleBox">
+        <div class="playerAttack"></div>
+        <div class="computerAttack"></div>
     </div>
-    <div class="container">
-        <div id="results">
-
-        </div>
-    </div>
+    <button class="reset" onclick = "resetGame()">play again?</button> 
+   </div>
+   <div class="computerOptions">
+    <h1 class="computerName">computer</h1>
+    <h1 class="computerScore">0</h1>
+    <img src="images/rock.png" id="rock"/>
+    <img src="images/paper.png" id="paper"/>
+    <img src="images/scissors.png" id="scissors"/>
+   </div>
+</div>
+<h1 class="ties">ties: 0</h1>
 </body>
-<script src="javascript2.js"></script>
+<script src="javascript.js"></script>
 </html>

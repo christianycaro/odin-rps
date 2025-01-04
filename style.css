@@ -25,6 +25,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	font-family: 'Courier New', Courier, monospace;
+	background-color: black;
 }
 ol, ul {
 	list-style: none;
@@ -43,29 +45,106 @@ table {
 }
 
 
-.choices {
-    display: flex;
-    justify-content:center;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-.choices button {
-    height: 300px;
-    width: 300px;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-    margin-top: 16px;
-    border: 2px solid red;
-}
-
-.container #results {
+.playerOptions {
+	/* border: solid 2px red; */
+	padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    border: 2px solid red;
-    padding: 8px;
+	gap: 8px;
 }
+.computerOptions {
+	/* border: solid 2px red; */
+	padding: 8px;
+    display: flex;
+    flex-direction: column;
+	gap: 8px;
+}
+
+.playerScore {
+	align-self: center;
+	font-size: xx-large;
+	color: rgb(138, 199, 255);
+}
+
+.computerScore {
+	align-self: center;
+	font-size: xx-large;
+	color: rgb(138, 199, 255);
+}
+
+.playerName {
+	align-self: center;
+	font-size: xx-large;
+	color: rgb(138, 199, 255);
+}
+
+.computerName {
+	align-self: center;
+	font-size: xx-large;
+	color: rgb(138, 199, 255);
+}
+
+.playerOptions img {
+	/* border: 2px solid red; */
+	padding: 8px;
+	background-color: rgb(138, 199, 255);
+}
+
+.computerOptions img {
+	/* border: 2px solid red; */
+	padding: 8px;
+	background-color: rgb(138, 199, 255);
+}
+
+.playerOptions img:hover {
+	/* border: 2px solid red; */
+	padding: 8px;
+	background-color: rgb(4, 133, 255);
+}
+
+.gameBox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.battleUi {
+	display: flex;
+	/* border: solid 2px red; */
+	flex-direction: column;
+	justify-content: center;
+	gap: 8px;
+}
+
+.winnerUi {
+	display: flex;
+	align-self: center;
+	/* border: solid 2px red; */
+	padding: 4px;
+	height: 20px;
+	width: fit-content;
+	min-width: 100px;
+
+	color: rgb(138, 199, 255);
+	font-size: large;
+}
+
+.battleBox {
+    display: flex;
+	/* border: solid 2px red; */
+	width: 400px;
+	height: 200px;
+}
+
+.reset {
+    display: none;
+	align-self: center;
+	height: 24px;
+	width: 100px;
+ }
+
+ .ties {
+	padding: 8px;
+	color: rgb(138, 199, 255);
+	font-size: large;
+ }
+

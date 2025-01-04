@@ -1,141 +1,126 @@
+const choices = ["rock", "paper", "scissors"];
+let winners = [];
 
-const choices = ["Rock", "Paper", "Scissors"]; 
-//setting up an array to assign values to the random numbers
+function computerChoice() {
+    return choices[Math.floor(Math.random() * choices.length)];
+  }
 
-function playGame() {
+  function startRound()  {
+    let imgs = document.querySelectorAll("img");
+    imgs.forEach((img) => img.addEventListener("click", () => {
+        if (img.id) {
+            playRound(img.id);
+        }
+    } ))
+  }
 
-    let humanScore = 0;
-    let computerScore = 0;
+  function displayAttacks(playerMove, computerMove) {
+    let playerAttackBox = document.querySelector(".playerAttack");
+    let computerAttackBox = document.querySelector(".computerAttack");
+
+    playerAttackBox.innerHTML = "";
+    computerAttackBox.innerHTML = "";
+
+    let playerImg = document.createElement("img");
+    playerImg.src = `images/${playerMove}.png`;
+    playerImg.style.width = "200px";
+
+    let computerImg = document.createElement("img");
+    computerImg.src = `images/${computerMove}.png`;
+    computerImg.style.width = "200px";
+
+    playerAttackBox.appendChild(playerImg);
+    computerAttackBox.appendChild(computerImg);
+
     
-    for (let i = 0; i < 5; i++) {
 
-        function getHumanChoice() {
-            const humanChoice = prompt();
-            const humanChoice2 = humanChoice.toLowerCase();
-            function assignHumanChoice(val) {
-                if (val == "rock") {
-                    return choices[0]
-                } else if (val == "paper") {
-                    return choices[1]
-                } else if (val == "scissors") {
-                    return choices[2]
-                } else {
-                    return "not a valid answer"
-                };
-            };
-            return assignHumanChoice(humanChoice2);
-        };
-
-        let humanMove = getHumanChoice();
-        console.log(humanMove);
-
-        function getComputerChoice() {
-            const number = 3;
-            function random(n) { 
-                return Math.floor(Math.random() * n);
-            };
-            //function from mdn web docs that generates a random number between 0 and a specified number
-            const choice = random(number);
-            //generates a random number between 0 and 3
-            function assignComputerChoice (val) {
-                if (val == 0) {
-                    return choices[0]
-                } else if (val == 1) {
-                    return choices[1]
-                } else if (val == 2) {
-                    return choices[2]
-                };
-            };
-            //assigning each value in the array to one of the possible number values
-            const finalComputerChoice = assignComputerChoice(choice);
-            //plugging the randomly generated number into this function to assign rock paper or scissors to it
-            return finalComputerChoice;
-        };
-        let computerMove = getComputerChoice();
-        console.log(computerMove);
+  }
 
 
+  function checkWinner(choiceP, choiceC) {
+    if (choiceP === choiceC) {
+      return "Tie";
+    } else if (
+      (choiceP === "rock" && choiceC === "scissors") ||
+      (choiceP === "paper" && choiceC === "rock") ||
+      (choiceP === "scissors" && choiceC === "paper")
+    ) {
+      return "Player";
+    } else {
+      return "Computer";
+    }
+  }
 
-        function playRound(a, b) {
-        const win = [[choices[0] + choices[2]], [choices[1] + choices[0]], [choices[2] + choices[1]]];
-        const lose = [[choices[2] + choices[0]], [choices[0] + choices[1]], [choices[1] + choices[2]]];
-        const tie = [[choices[0] + choices[0]], [choices[1] + choices[1]], [choices[2] + choices[2]]];
+  function displayRoundWinner(winner) {
+    if (winner == "Player") {
+      document.querySelector(".winnerUi").textContent = "player";
+    } else if (winner == "Computer") {
+      document.querySelector(".winnerUi").textContent =
+        "computer";
+    } else {
+      document.querySelector(".winnerUi").textContent = "tie";
+    }
+  }
 
-        if ((a + b) == win[0]) {
-            return "you win! rock beats scissors.";
-        } else if ((a + b) == win[1]) {
-            return "you win! paper beats rock."
-        } else if ((a + b) == win[2]) {
-            return "you win! scissors beats paper."
-        };
+  function displayResults() {
+    let playerWins = winners.filter((item) => item == "Player").length;
+    if (playerWins == 5) {
+      document.querySelector(".winnerUi").textContent = "player won 5 rounds";
+    } else {
+      document.querySelector(".winnerUi").textContent =
+        "computer won 5 rounds";
+    }
+    document.querySelector(".reset").style.display = "flex";
+  }
 
-        if ((a + b) == lose[0]) {
-            return "you lose :( scissors loses to rock"
-        } else if ((a + b) == lose[1]) {
-            return "you lose :( rock loses to paper"
-        } else if ((a + b) == lose[2]) {
-            return "you lose :( paper loses to scissors"
-        };
+  function trackWins() {
+    let pWinCount = winners.filter((item) => item == "Player").length;
+    let cWinCount = winners.filter((item) => item == "Computer").length;
+    let ties = winners.filter((item) => item == "Tie").length;
+    document.querySelector(".playerScore").textContent = pWinCount;
+    document.querySelector(".computerScore").textContent = cWinCount;
+    document.querySelector(".ties").textContent = `ties: ${ties}`;
+  }
 
-        if ((a + b) == tie[0]) {
-            return "its a tie!"
-        } else if ((a + b) == tie[1]) {
-            return "its a tie!"
-        } else if ((a + b) == tie[2]) {
-            return "its a tie!"
-        };
+  function countWins() {
+    let pWinCount = winners.filter((item) => item == "Player").length;
+    let cWinCount = winners.filter((item) => item == "Computer").length;
+    return Math.max(pWinCount, cWinCount);
+  }
 
-        };
+  function playRound(playerMove) {
+    let computerMove = computerChoice();
+    let winner = checkWinner(playerMove, computerMove);
+    winners.push(winner);
+    displayAttacks(playerMove, computerMove);
+    console.log(playerMove);
+    console.log(computerMove);
+    console.log(winner);
 
-        let humanWins;
+    trackWins();
 
-        function roundWinner(a, b) {
-            const win = [[choices[0] + choices[2]], [choices[1] + choices[0]], [choices[2] + choices[1]]];
-            const lose = [[choices[2] + choices[0]], [choices[0] + choices[1]], [choices[1] + choices[2]]];
-            const tie = [[choices[0] + choices[0]], [choices[1] + choices[1]], [choices[2] + choices[2]]];
-            if ((a + b) == win[0] || (a + b) == win[1] || (a + b) == win[2]) {
-               return humanWins = true; 
-            } else if ((a + b) == lose[0] || (a + b) == lose[1] || (a + b) == lose[2]) {
-                return humanWins = false;
-            };
-        };
+    displayRoundWinner(winner);
+    wins = countWins();
+    if (wins == 5) {
+        displayResults();
+    }
+  }
 
-        function incrementHumanWin() {
-            if (roundWinner(humanMove, computerMove) == true) {
-                return humanScore++
-            } else {
-                return humanScore
-            };
-        }
+  function resetGame() {
+    winners = [];
+    document.querySelector(".playerScore").textContent = "0";
+    document.querySelector(".computerScore").textContent = "0";
+    document.querySelector(".ties").textContent = "ties: 0";
+    document.querySelector(".winnerUi").textContent = "";
+    document.querySelector(".reset").style.display = "none";
 
-        function incrementComputerWin() {
-            if (roundWinner(humanMove, computerMove) == false) {
-                return computerScore++
-            } else {
-                return computerScore
-            };
-        }
+    let playerAttackBox = document.querySelector(".playerAttack");
+    let computerAttackBox = document.querySelector(".computerAttack");
+    playerAttackBox.innerHTML = "";
+    computerAttackBox.innerHTML = "";
+  }
 
-        console.log(playRound(humanMove, computerMove));
 
-        console.log(incrementHumanWin());
-        console.log(incrementComputerWin());
+startRound();
 
-    };
-   
-    console.log (humanScore, computerScore);
 
-    function declareWin(x, y) {
-        if (x > y) {
-            return "You win this round :D"
-        } else if (x < y) {
-            return "You lose this round D:"
-        } else if (x == y) {
-            return "Nobody won!"
-        };
-    };
-
-    console.log(declareWin(humanScore, computerScore));
-
-};
-playGame();
