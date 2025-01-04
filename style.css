@@ -26,7 +26,11 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 	font-family: 'Courier New', Courier, monospace;
-	background-color: black;
+	background-size: 80px 40px;
+	background-color: rgb(0, 0, 0);
+  background-image:
+    linear-gradient(to right, grey 1px, transparent 1px),
+    linear-gradient(to bottom, grey 1px, transparent 1px);
 }
 ol, ul {
 	list-style: none;
